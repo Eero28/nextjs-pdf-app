@@ -3,10 +3,7 @@ name: Next.js CI with ESLint and Prettier
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - master
 
 jobs:
   build:
