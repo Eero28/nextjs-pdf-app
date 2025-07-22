@@ -1,4 +1,4 @@
-name: Next.js CI with ESLint and Prettier
+name: Next.js-pdf CI
 
 on:
   push:
@@ -29,5 +29,3 @@ jobs:
 
       - name: Build
         run: npm run build
-
-      

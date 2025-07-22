@@ -1,31 +1,31 @@
-'use client';
+"use client";
 
-import { useState, DragEvent, ChangeEvent } from 'react';
+import { useState, DragEvent, ChangeEvent } from "react";
 
 const Home = () => {
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [lines, setLines] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
   // logic when pdf is dropped
   const handleUpload = async (file: File) => {
-    setError('');
+    setError("");
     setLines([]);
     setLoading(true);
 
-    if (file.type !== 'application/pdf') {
-      setError('Only PDF files are allowed!');
+    if (file.type !== "application/pdf") {
+      setError("Only PDF files are allowed!");
       setLoading(false);
       return;
     }
 
     // add file to formdata
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     try {
-      const res = await fetch('/api/pdf', {
-        method: 'POST',
+      const res = await fetch("/api/pdf", {
+        method: "POST",
         body: formData,
       });
 
@@ -33,11 +33,11 @@ const Home = () => {
       if (res.ok) {
         setLines(data.lines || []);
       } else {
-        setError(data.error || 'Extraction failed');
+        setError(data.error || "Extraction failed");
       }
     } catch (err) {
       console.error(err);
-      setError('Something went wrong.');
+      setError("Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -60,11 +60,19 @@ const Home = () => {
 
   return (
     <div className="container">
-      <h1 className='container-title'>Drop your pdf here!</h1>
-      <div className="dropzone" onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}>
+      <h1 className="container-title">Drop your pdf here!</h1>
+      <div
+        className="dropzone"
+        onDrop={handleDrop}
+        onDragOver={(e) => e.preventDefault()}
+      >
         <p>Drag & Drop your PDF here</p>
         <p>or</p>
-        <input type="file" accept="application/pdf" onChange={handleFileInput} />
+        <input
+          type="file"
+          accept="application/pdf"
+          onChange={handleFileInput}
+        />
       </div>
 
       {loading && <p className="loading">Processing...</p>}
@@ -79,6 +87,6 @@ const Home = () => {
       )}
     </div>
   );
-}
+};
 
 export default Home;
